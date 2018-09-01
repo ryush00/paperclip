@@ -83,11 +83,7 @@ create_table "active_storage_blobs", force: :cascade do |t|
 end
 ```
 
-그러므로, 만약 파일들을 정확히 같은 위치에 두기를 원한다면, _직접 구현하세요_. 아니라면 다음 섹션을 
-
-So, assuming you want to leave the files in the exact same place,  _this is
-your migration_. Otherwise, see the next section first and modify the migration
-to taste.
+그러므로, 만약 파일들을 정확히 같은 위치에 두기를 원한다면, _직접 구현하세요_. 아니면 다음 섹션을 확인하여 적절히 씹고 뜯고 맛보며 마이그레이션을 수정하세요.
 
 ```ruby
 Dir[Rails.root.join("app/models/**/*.rb")].sort.each { |file| require file }
