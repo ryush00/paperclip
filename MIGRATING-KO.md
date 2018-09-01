@@ -4,37 +4,34 @@ Paperclip과 ActiveStorage는 비슷한 문제를 비슷한 해결책을 통해�
 
 Papercip에서 ActiveStorage로의 이전 과정은 아래와 같습니다:
 
-1. ActiveStorage 데이터베이스 마이그레이션 적용하기.
-2. 저장소 설정하기.
-3. 데이터베이스 데이터 복사하기.
+1. ActiveStorage 데이터베이스 마이그레이션 적용하기
+2. 저장소 설정하기
+3. 데이터베이스 데이터 복사하기
 4. 파일 복사하기
-5. 테스트 수정하기.
-6. 뷰 수정하기.
-7. 컨트롤러 수정하기.
-8. 모델 수정하기.
+5. 테스트 수정하기
+6. 뷰 수정하기
+7. 컨트롤러 수정하기
+8. 모델 수정하기
 
 ## ActiveStorage 데이터베이스 마이그레이션 적용하기
 
-Follow [the instructions for installing ActiveStorage]. You'll very likely want
-to add the `mini_magick` gem to your Gemfile.
+[ActiveStorage 설치 가이드]를 완료하세요. `mini_magick` gem을 Gemfile에 추가할것입니다.
 
 ```sh
 rails active_storage:install
 ```
 
-[the instructions for installing ActiveStorage]: https://github.com/rails/rails/blob/master/activestorage/README.md#installation
+[ActiveStorage 설치 가이드]: https://github.com/rails/rails/blob/master/activestorage/README.md#installation
 
-## Configure storage
+## 저장소 설정하기
 
-Again, follow [the instructions for configuring ActiveStorage].
+이제, [ActiveStorage 설정 가이드]를 완료하세요.
 
-[the instructions for configuring ActiveStorage]: http://edgeguides.rubyonrails.org/active_storage_overview.html#setup
+[ActiveStorage 설정 가이드]: http://edgeguides.rubyonrails.org/active_storage_overview.html#setup
 
-## Copy the database data over
+## 데이터베이스 데이터 복사하기
 
-The `active_storage_blobs` and `active_storage_attachments` tables are where
-ActiveStorage expects to find file metadata. Paperclip stores the file metadata
-directly on the associated object's table.
+`active_storage_blobs` 및  `active_storage_attachments` 테이블은 ActiveStorage가 파일 메타데이터를 찾는 곳입니다. Paperclip은 메타데이터를 관련된 객체의 테이블에 직접 저장합니다.
 
 You'll need to write a migration for this conversion. Because the models for
 your domain are involved, it's tricky to supply a simple script. But we'll try!
@@ -48,7 +45,7 @@ class User < ApplicationRecord
 end
 ```
 
-Your Paperclip migrations will produce a table like so:
+Papercip 마이그레이션은 아래와 같은 테이블을 생성할 것입니다:
 
 ```ruby
 create_table "users", force: :cascade do |t|
@@ -172,27 +169,23 @@ class ConvertToActiveStorage < ActiveRecord::Migration[5.2]
 end
 ```
 
-## Copy the files over
+## 파일 복사하기
 
-The above migration leaves the files as they are. However, the default
-Paperclip and ActiveStorage storage services use different locations.
+위 마이그레이션은 파일을 그대로 놔둡니다. 그러나, 기본적으로 Paperclip과 ActiveStorage 저장소는 다른 위치에 파일을 저장합니다.
 
-By default, Paperclip looks like this:
+기본적으로 Paperclip은 이런 방식으로 파일을 저장하고:
 
 ```
 public/system/users/avatars/000/000/004/original/the-mystery-of-life.png
 ```
 
-And ActiveStorage looks like this:
+ActiveStorage는 이런 방식으로 파일을 저장합니다:
 
 ```
 storage/xM/RX/xMRXuT6nqpoiConJFQJFt6c9
 ```
 
-That `xMRXuT6nqpoiConJFQJFt6c9` is the `active_storage_blobs.key` value. In the
-migration above we simply used the filename but you may wish to use a UUID
-instead.
-
+저 `xMRXuT6nqpoiConJFQJFt6c9` 값은 `active_storage_blobs.key` 값입니다. 윗 마이그레이션에서 우리는 간단히 파일명을 사용했지만, UUID를 사용하고 싶을수도 니다.
 
 ### Moving local storage files
 
