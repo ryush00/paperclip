@@ -183,7 +183,7 @@ ActiveStorage는 이런 방식으로 파일을 저장합니다:
 storage/xM/RX/xMRXuT6nqpoiConJFQJFt6c9
 ```
 
-저 `xMRXuT6nqpoiConJFQJFt6c9` 값은 `active_storage_blobs.key` 값입니다. 윗 마이그레이션에서 우리는 간단히 파일명을 사용했지만, UUID를 사용하고 싶을수도 니다.
+저 `xMRXuT6nqpoiConJFQJFt6c9` 값은 `active_storage_blobs.key` 값입니다. 윗 마이그레이션에서 우리는 간단히 파일명을 사용했지만, UUID를 사용하고 싶을수도 있습니다.
 
 ### Moving local storage files
 
