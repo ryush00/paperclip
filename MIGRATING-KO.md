@@ -2,7 +2,7 @@
 
 Paperclip과 ActiveStorage는 비슷한 문제를 비슷한 해결책을 통해서 해결하므로, 이동은 간단한 데이터 재작성을 통해 이뤄질수 있습니다.
 
-Papercip에서 ActiveStorage로의 이전 과정은 아래와 같습니다:
+Paperclip에서 ActiveStorage로의 이전 과정은 아래와 같습니다:
 
 1. ActiveStorage 데이터베이스 마이그레이션 적용하기
 2. 저장소 설정하기
@@ -56,7 +56,7 @@ create_table "users", force: :cascade do |t|
 end
 ```
 
-And you'll be converting into these tables:
+그리고 이 테이블로 변환할 예정이죠:
 
 ```ruby
 create_table "active_storage_attachments", force: :cascade do |t|
@@ -82,6 +82,8 @@ create_table "active_storage_blobs", force: :cascade do |t|
   t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
 end
 ```
+
+그러므로, 만약 파일들을 정확히 같은 위치에 두기를 원한다면, _직접 구현하세요_. 아니라면 다음 섹션을 
 
 So, assuming you want to leave the files in the exact same place,  _this is
 your migration_. Otherwise, see the next section first and modify the migration
